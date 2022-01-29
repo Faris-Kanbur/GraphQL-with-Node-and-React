@@ -84,19 +84,45 @@ const products = [
   },
 ];
 
+const categories = [
+  {
+    id: "c01b1ff4-f894-4ef2-b27a-22aacc2fca70",
+    name: "Kitchen",
+  },
+  {
+    id: "34115aac-0ff5-4859-8f43-10e8db23602b",
+    name: "Garden",
+  },
+  {
+    id: "d914aec0-25b2-4103-9ed8-225d39018d1d",
+    name: "Sports",
+  },
+];
+
 const typeDefs = gql`
   type Query {
     hello: String!
     products: [Product!]!
+    product(id: ID!): Product
+    categories: [Category!]!
+    category(id: ID!): Category
   }
 
   # Object type for products
   type Product {
+    id: ID!
     name: String!
     description: String!
+    image: String!
     quantity: Int!
     price: Float!
     onSale: Boolean!
+  }
+
+  #Category
+  type Category {
+    id: ID!
+    name: String!
   }
 `;
 
@@ -106,15 +132,34 @@ const resolvers = {
       return "World!";
     },
     products: () => {
-      return [
-        {
-          name: "Bike",
-          description: "Mountain",
-          quantity: 20,
-          price: 99.97,
-          onSale: true,
-        },
-      ];
+      return products;
+    },
+    product: (parent, args, content) => {
+      //The id we send to get the product we want
+      // const { id } = args;
+      const productId = args.id;
+
+      //The procucts list is scanned and returns the product to us if the product id and id which we sent match
+      const product = products.find((product) => product.id === productId);
+
+      if (!product) return null;
+      return product;
+    },
+    categories: () => {
+      return categories;
+    },
+    category: (parent, args, content) => {
+      //The id we send to get the category we want
+      // const { id } = args;
+      const categorytId = args.id;
+
+      //The catergories list is scanned and returns the category to us if the category id and id which we sent match
+      const catergory = categories.find(
+        (category) => category.id === categorytId
+      );
+
+      if (!catergory) return null;
+      return catergory;
     },
   },
 };
