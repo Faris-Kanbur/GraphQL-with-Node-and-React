@@ -136,30 +136,28 @@ const resolvers = {
     },
     product: (parent, args, content) => {
       //The id we send to get the product we want
-      // const { id } = args;
-      const productId = args.id;
-
+      // const productId = args.id;
       //The procucts list is scanned and returns the product to us if the product id and id which we sent match
-      const product = products.find((product) => product.id === productId);
+      // const product = products.find((product) => product.id === productId);
+      // if (!product) return null;
+      // return product;
 
-      if (!product) return null;
-      return product;
+      const { id } = args;
+      return products.find((product) => product.id === id);
     },
     categories: () => {
       return categories;
     },
     category: (parent, args, content) => {
       //The id we send to get the category we want
-      // const { id } = args;
-      const categorytId = args.id;
-
+      // const categorytId = args.id;
       //The catergories list is scanned and returns the category to us if the category id and id which we sent match
-      const catergory = categories.find(
-        (category) => category.id === categorytId
-      );
+      // const catergory = categories.find( (category) => category.id === categorytId);
+      // if (!catergory) return null;
+      // return catergory;
 
-      if (!catergory) return null;
-      return catergory;
+      const { id } = args;
+      return categories.find((category) => category.id === id);
     },
   },
 };
