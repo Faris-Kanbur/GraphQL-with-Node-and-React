@@ -118,6 +118,7 @@ const typeDefs = gql`
   }
 
   # Object type for products
+  # ın Prodcut we are going to have one Category for prodcut(one product just can take part in one Catergory) so we are define array for products
   type Product {
     id: ID!
     name: String!
@@ -126,9 +127,11 @@ const typeDefs = gql`
     quantity: Int!
     price: Float!
     onSale: Boolean!
+    category: Category
   }
 
   #Category
+  # ın Category we are going to have more than one product for one Category so we are define array for products
   type Category {
     id: ID!
     name: String!
@@ -172,9 +175,16 @@ const resolvers = {
   // we create new that and didnt write in "Query" because we dont have "products" in  "categories list" we just have id and name variables
   Category: {
     products: (parent, args, content) => {
-      //parent can give us id and name which take paer in type Category
+      //parent can give us id and name which take part in type Category ( parent=Category)
       const { id } = parent;
       return products.filter((product) => product.categoryId === id);
+    },
+  },
+  Product: {
+    category: (parent, args, content) => {
+      //parent can give us CategoryId and other variable/value which take paer in type Product ( parent=Product)
+      const { categoryId } = parent;
+      return categories.find((category) => category.id === categoryId);
     },
   },
 };
