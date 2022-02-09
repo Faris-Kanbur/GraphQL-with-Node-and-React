@@ -12,4 +12,40 @@ exports.Mutation = {
 
     return newCategory;
   },
+  addProduct: (parent, { input }, { products }) => {
+    const { name, image, price, onSale, quantity, categoryId, description } =
+      input;
+
+    const newProduct = {
+      id: uuid(),
+      name,
+      image,
+      price,
+      onSale,
+      quantity,
+      categoryId,
+      description,
+    };
+
+    products.push(newProduct);
+
+    return newProduct;
+  },
+
+  addReview: (parent, { input }, { reviews }) => {
+    const { title, comment, rating, date, productId } = input;
+
+    const newReview = {
+      id: uuid(),
+      date,
+      title,
+      comment,
+      rating,
+      productId,
+    };
+
+    reviews.push(newReview);
+
+    return newReview;
+  },
 };
