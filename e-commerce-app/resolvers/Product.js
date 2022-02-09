@@ -1,14 +1,14 @@
 exports.Product = {
-  category: ({ categoryId }, args, { categories }) => {
+  category: ({ categoryId }, args, { db }) => {
     //parent can give us CategoryId and other variable/value which take paer in type Product ( parent=Product)
 
     // you can like this or you can distructure like up
     // const { categoryId } = parent;
-    return categories.find((category) => category.id === categoryId);
+    return db.categories.find((category) => category.id === categoryId);
   },
 
-  reviews: ({ id }, args, { reviews }) => {
+  reviews: ({ id }, args, { db }) => {
     // id ==> product id
-    return reviews.filter((review) => review.productId === id);
+    return db.reviews.filter((review) => review.productId === id);
   },
 };

@@ -286,7 +286,7 @@ const categories = [
   },
 ];
 
-module.exports = {
+exports.db = {
   products,
   categories,
   reviews,

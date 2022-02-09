@@ -4,8 +4,8 @@ exports.Query = {
   hello: () => {
     return "World!";
   },
-  products: (parent, { filter }, { products }) => {
-    let filteredProducts = products;
+  products: (parent, { filter }, { db }) => {
+    let filteredProducts = db.products;
 
     if (filter) {
       const { onSale, avgRating } = filter;
@@ -20,7 +20,7 @@ exports.Query = {
         filteredProducts = filteredProducts.filter((product) => {
           let sumRating = 0;
           let numberOfReviews = 0;
-          reviews.forEach((review) => {
+          de.reviews.forEach((review) => {
             if (review.productId === product.id) {
               sumRating += review.rating;
             }
@@ -33,7 +33,7 @@ exports.Query = {
 
     return filteredProducts;
   },
-  product: (parent, { id }, { products }) => {
+  product: (parent, { id }, { db }) => {
     //The id we send to get the product we want
     // const productId = args.id;
     //The procucts list is scanned and returns the product to us if the product id and id which we sent match
@@ -42,12 +42,12 @@ exports.Query = {
     // return product;
     // you can like this or you can distructure like up
     // const { id } = args;
-    return products.find((product) => product.id === id);
+    return db.products.find((product) => product.id === id);
   },
-  categories: (parent, args, { categories }) => {
-    return categories;
+  categories: (parent, args, { db }) => {
+    return db.categories;
   },
-  category: (parent, { id }, { categories }) => {
+  category: (parent, { id }, { db }) => {
     //The id we send to get the category we want
     // const categorytId = args.id;
     //The catergories list is scanned and returns the category to us if the category id and id which we sent match
@@ -55,6 +55,6 @@ exports.Query = {
     // if (!catergory) return null;
     // return catergory;
     // const { id } = args;
-    return categories.find((category) => category.id === id);
+    return db.categories.find((category) => category.id === id);
   },
 };
