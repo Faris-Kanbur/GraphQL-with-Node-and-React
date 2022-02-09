@@ -15,6 +15,7 @@ exports.typeDefs = gql`
     addReview(input: AddReviewsInput!): Reviews!
     deleteCategory(id: ID!): Boolean!
     deleteProduct(id: ID): Boolean!
+    deleteReview(id: ID!): Boolean!
   }
 
   # Object type for products
