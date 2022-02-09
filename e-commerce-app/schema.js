@@ -9,6 +9,10 @@ exports.typeDefs = gql`
     category(id: ID!): Category
   }
 
+  type Mutation {
+    addCategory(input: AddCategoryInput!): Category!
+  }
+
   # Object type for products
   # ın Prodcut we are going to have one Category for prodcut(one product just can take part in one Catergory) so we are define array for products
   type Product {
@@ -42,5 +46,9 @@ exports.typeDefs = gql`
   input ProductsFilterInput {
     onSale: Boolean
     avgRating: Int
+  }
+
+  input AddCategoryInput {
+    name: String!
   }
 `;
